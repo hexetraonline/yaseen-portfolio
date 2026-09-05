@@ -62,3 +62,112 @@ footer{border-top:1px solid #1c2924;padding:22px 5vw;color:#607069;font:9px 'DM 
   z-index:1;
   pointer-events:none;
 }
+
+/* =========================
+   SCROLLING CYBER TICKER
+   ========================= */
+
+.ticker {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+
+    border-top: 1px solid #1b2823;
+    border-bottom: 1px solid #1b2823;
+
+    padding: 17px 0;
+
+    color: #37f5a7;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+
+    background: rgba(5, 7, 9, 0.45);
+}
+
+/* Moving container */
+.ticker-track {
+    display: flex;
+    width: max-content;
+
+    animation: tickerScroll 25s linear infinite;
+
+    will-change: transform;
+}
+
+/* Each repeated text */
+.ticker-track span {
+    flex-shrink: 0;
+    display: block;
+
+    padding-right: 80px;
+}
+
+/* Continuous movement */
+@keyframes tickerScroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* Pause when mouse is over it */
+.ticker:hover .ticker-track {
+    animation-play-state: paused;
+}
+
+/* Fade edges */
+.ticker::before,
+.ticker::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+
+    width: 100px;
+
+    z-index: 2;
+    pointer-events: none;
+}
+
+.ticker::before {
+    left: 0;
+    background: linear-gradient(
+        90deg,
+        #050709,
+        transparent
+    );
+}
+
+.ticker::after {
+    right: 0;
+    background: linear-gradient(
+        270deg,
+        #050709,
+        transparent
+    );
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .ticker {
+        font-size: 9px;
+        letter-spacing: 1.5px;
+    }
+
+    .ticker-track {
+        animation-duration: 20s;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .ticker-track {
+        animation: none;
+    }
+}
